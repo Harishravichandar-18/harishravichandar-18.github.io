@@ -64,11 +64,12 @@
     .text-link { text-decoration: none; font-size: 12px; font-weight: 700; }
     .arrow { margin-left: 2px; display: inline-block; transition: transform .2s; }
     a:hover .arrow { transform: translateX(3px); }
+    /* Let the original photograph determine its own height and shape. */
     .photo-wrap { position: relative; justify-self: end; width: min(100%,320px); }
-    /* The existing profile.jpg is square. Match its native ratio so nothing is cropped. */
-    .photo-frame { position: relative; width: 100%; aspect-ratio: 1 / 1; overflow: hidden; border-radius: 22px; background: linear-gradient(135deg,#d5e0e1,#acc0c6); box-shadow: 12px 12px 0 #e4e9e5; }
-    .photo-fallback { position: absolute; inset: 0; display: grid; place-items: center; font: 500 84px/1 var(--serif); color: rgba(24,67,88,.37); }
-    .photo-frame img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; }
+    .photo-frame { width: 100%; background: transparent; border: none; border-radius: 0; box-shadow: none; overflow: visible; }
+    .photo-frame img { display: block; width: 100%; height: auto; max-height: none; object-fit: initial; object-position: initial; aspect-ratio: auto; border-radius: 14px; box-shadow: 0 12px 30px rgba(27,43,56,.10); }
+    .photo-fallback { display: none; }
+    .photo-frame:has(img[style*="display: none"]) .photo-fallback { display: grid; place-items: center; min-height: 260px; border-radius: 14px; background: #e4e9e5; font: 500 84px/1 var(--serif); color: rgba(24,67,88,.37); }
     .photo-note { text-align: center; margin: 22px 0 0; color: var(--muted); font-size: 11px; letter-spacing: .06em; }
     .feature { border: 1px solid #d7e1e3; border-left: 4px solid var(--accent); background: #eef3f2; border-radius: 5px; display: grid; grid-template-columns: 170px minmax(0,1fr) auto; align-items: center; gap: 26px; padding: 25px 30px; margin-bottom: 65px; }
     .feature-label { color: var(--accent); font-size: 10px; letter-spacing: .12em; line-height: 1.8; text-transform: uppercase; font-weight: 700; }
@@ -181,7 +182,7 @@
         <div class="photo-wrap">
           <div class="photo-frame">
             <div class="photo-fallback" aria-hidden="true">HR</div>
-            <img src="profile.jpg" alt="Portrait of Harish Ravichandar" width="1000" height="1000" fetchpriority="high" onerror="this.style.display='none'">
+            <img src="profile.jpg" alt="Portrait of Harish Ravichandar" fetchpriority="high" onerror="this.style.display='none'">
           </div>
           <p class="photo-note">Lawrence, Kansas · USA</p>
         </div>
